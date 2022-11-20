@@ -1,15 +1,19 @@
 #! /usr/bin/env node
 
 console.log(
-  "This script populates some test items, brands, categories and iteminstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true"
+  "This script populates some test items, brands, categories and iteminstances to your database."
 );
 
+// Initialize the async module
 var async = require("async");
+
+// Initialize the expoted mongoose models
 var Item = require("./models/item");
 var Brand = require("./models/brand");
 var Category = require("./models/category");
 var ItemInstance = require("./models/item_instance");
 
+// Connect mongoose to the mongoDb Atlas database
 var mongoose = require("mongoose");
 var mongoDB =
   "mongodb+srv://m001-student:mongodb-basics@sandbox.ed9rkru.mongodb.net/inventory?retryWrites=true&w=majority";
@@ -18,11 +22,14 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
+// Create arrays that will store the created test documents of the database
 var brands = [];
 var categories = [];
 var items = [];
 var iteminstances = [];
 
+// Create functions that take the values as arguments and save the models as collections, and documents in the mongoDb database,
+// also they pushe the newly created objects to the arrays(created above)
 function brandCreate(brand_name, gst_number, address, cb) {
   var branddetail = {
     brand_name: brand_name,
@@ -99,6 +106,7 @@ function itemInstanceCreate(item, date_of_manuf, status, date_of_exp, cb) {
   });
 }
 
+// Create brand and category using the functions(running in series) defined above, the arrays are populated in tandem whose data will be used to create items and iteminstances
 function createBrandCategories(cb) {
   async.series(
     [
@@ -148,6 +156,7 @@ function createBrandCategories(cb) {
   );
 }
 
+// Create Items using the function(running in parallel) below and using the data from the brands and categories arrays
 function createItems(cb) {
   async.parallel(
     [
@@ -197,6 +206,7 @@ function createItems(cb) {
   );
 }
 
+// Create iteminstances using the function(running parallel) below and using the elements from the items array(for ref in the Schema)
 function createItemInstances(cb) {
   async.parallel(
     [
@@ -242,6 +252,7 @@ function createItemInstances(cb) {
   );
 }
 
+// Call all the above created functions(run in series) to run and do their work as explained above with the comments
 async.series(
   [createBrandCategories, createItems, createItemInstances],
   // Optional callback
