@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 //setup the default mongoose connection
 const mongoDB =
   "mongodb+srv://m001-student:mongodb-basics@sandbox.ed9rkru.mongodb.net/?retryWrites=true&w=majority";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopplogy: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Get the default connection
 const db = mongoose.connection;
