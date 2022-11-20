@@ -7,7 +7,7 @@ const ItemSchema = new Schema({
   name: { type: String, required: true },
   brand: { type: Schema.Types.ObjectId, ref: "Brand", required: true },
   description: { type: String, required: true },
-  creation_date: { type: Date, required: true, default: new Date() },
+  creation_date: { type: Date, required: true, default: Date.now },
   category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
 });
 
