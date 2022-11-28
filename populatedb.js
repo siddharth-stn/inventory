@@ -7,13 +7,13 @@ console.log(
 // Initialize the async module
 var async = require("async");
 
-// Initialize the expoted mongoose models
+// Initialize the exported mongoose models
 var Item = require("./models/item");
 var Brand = require("./models/brand");
 var Category = require("./models/category");
 var ItemInstance = require("./models/item_instance");
 
-// Connect mongoose to the mongoDb Atlas database
+// Initialize and Connect mongoose to the mongoDb Atlas database
 var mongoose = require("mongoose");
 var mongoDB =
   "mongodb+srv://m001-student:mongodb-basics@sandbox.ed9rkru.mongodb.net/inventory?retryWrites=true&w=majority";
@@ -29,7 +29,7 @@ var items = [];
 var iteminstances = [];
 
 // Create functions that take the values as arguments and save the models as collections, and documents in the mongoDb database,
-// also they pushe the newly created objects to the arrays(created above)
+// also they push the newly created objects to the arrays(created above)
 function brandCreate(brand_name, gst_number, address, cb) {
   var branddetail = {
     brand_name: brand_name,
@@ -106,7 +106,8 @@ function itemInstanceCreate(item, date_of_manuf, status, date_of_exp, cb) {
   });
 }
 
-// Create brand and category using the functions(running in series) defined above, the arrays are populated in tandem whose data will be used to create items and iteminstances
+// Run the functions using async module series function to Create brand and category using the functions(running in series) defined above,
+// the arrays are populated in tandem whose data will be used to create items and iteminstances
 function createBrandCategories(cb) {
   async.series(
     [
