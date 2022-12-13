@@ -15,8 +15,8 @@ IteminstanceSchema.virtual("url").get(function () {
 
 IteminstanceSchema.virtual("isExp").get(function () {
   let currFullDate = new Date();
-  let currMonth = currFullDate.getMonth();
   let currYear = currFullDate.getFullYear();
+  let currMonth = currFullDate.getMonth();
   let currDate = currFullDate.getDate();
 
   let yearOfExp = this.date_of_exp.getFullYear();
