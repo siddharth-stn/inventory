@@ -20,8 +20,8 @@ db.on("error", () => {
   console.error("MongoDB connection error:");
 });
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 const articleRouter = require("./routes/article");
 
 var app = express();
