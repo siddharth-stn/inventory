@@ -28,7 +28,7 @@ var categories = [];
 var items = [];
 var iteminstances = [];
 
-// Create functions that take the values as arguments and save the models as collections, and documents in the mongoDb database,
+// Create functions that take the values as arguments and, save the models as collections and documents in the mongoDb database,
 // also they push the newly created objects to the arrays(created above)
 function brandCreate(brand_name, gst_number, address, cb) {
   var branddetail = {
