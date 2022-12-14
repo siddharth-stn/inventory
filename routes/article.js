@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
+// Initialize controller modules
+const brand_controller = require("../controllers/brandController");
+const category_controller = require("../controllers/categoryController");
+const item_instance_controller = require("../controllers/item_instanceController");
+const item_controller = require("../controllers/itemController");
+
 /* GET index page */
 router.get("/", (req, res, next) => {
   res.send("Index Page");
