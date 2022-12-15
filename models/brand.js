@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Get class Schema from mongoose
 const Schema = mongoose.Schema;
 
 const BrandSchema = new Schema({
