@@ -7,7 +7,7 @@ const category_controller = require("../controllers/categoryController");
 const item_instance_controller = require("../controllers/item_instanceController");
 const item_controller = require("../controllers/itemController");
 
-/// ITEM ROUTES ///
+//* ITEM ROUTES //
 
 /* GET article home page */
 router.get("/", (req, res, next) => {
@@ -54,21 +54,130 @@ router.get("/item", (req, res, next) => {
   res.send("Item List Page");
 });
 
-//! Have to start working here with brand routes
+//* BRAND ROUTES
 
-/* GET iteminstance list page */
-router.get("/iteminstance", (req, res, next) => {
-  res.send("Item Instance List Page");
+// GET request for creating a brand. NOTE this must come before routes that use id (eg to display a brand).
+router.get("/brand/create", (req, res, next) => {
+  res.send("GET page for brand creation");
 });
 
-/* GET Brand list page */
+// POST request for creating a brand.
+router.post("/brand/create", (req, res, next) => {
+  res.send("POST page to create brand");
+});
+
+// GET request to delete brand.
+router.get("/brand/:id/delete", (req, res, next) => {
+  res.send("GET page to delete brand");
+});
+
+// POST request to delete brand.
+router.post("/brand/:id/delete", (req, res, next) => {
+  res.send("POST page to delete brand");
+});
+
+// GET request to update brand.
+router.get("/brand/:id/update", (req, res, next) => {
+  res.send("GET page to update brand");
+});
+
+// POST request to update brand.
+router.post("/brand/:id/update", (req, res, next) => {
+  res.send("POST page to update brand");
+});
+
+// GET request to display one brand with id.
+router.get("/brand/:id", (req, res, next) => {
+  res.send("GET page to to diplay brand");
+});
+
+/* GET list for all brands */
 router.get("/brand", (req, res, next) => {
   res.send("Brand List Page");
+});
+
+//* CATEGORY Routes //
+
+// GET request for creating a category. NOTE this route muct come before the routes using id (eg display a category)
+router.get("/category/create", (req, res, next) => {
+  res.send("GET request for creating a category");
+});
+
+// POST route for creating a category.
+router.post("/category/create", (req, res, next) => {
+  res.send("POST request for creating a category");
+});
+
+// GET route for deleting a category.
+router.get("/category/:id/delete", (req, res, next) => {
+  res.send("GET request for deleting a category");
+});
+
+// POST route for deleting a category.
+router.post("/category/:id/delete", (req, res, next) => {
+  res.send("POST request for deleting a category");
+});
+
+// GET route for update a category.
+router.get("/category/:id/update", (req, res, next) => {
+  res.send("GET request for updating a category");
+});
+
+// POST route for update a category.
+router.post("/category/:id/update", (req, res, next) => {
+  res.send("POST request for updating a category");
+});
+
+// GET route to display a category using id.
+router.get("/category/:id", (req, res, next) => {
+  res.send("GET request to display a category");
 });
 
 /* GET category list page */
 router.get("/category", (req, res, next) => {
   res.send("Category List Page");
+});
+
+//* ITEM_INSTANCE Routes //
+
+// GET request to create an item_instance. NOTE this must come before routes that use an id (eg delete or update using an id)
+router.get("/iteminstance/create", (req, res, next) => {
+  res.send("Create an item instance");
+});
+
+// POST request to create an item instance
+router.post("iteminstance/create", (req, res, next) => {
+  res.send("POST route to create an item instance");
+});
+
+// GET request to delete an item instance using id
+router.get("iteminstance/:id/delete", (req, res, next) => {
+  res.send("GET route to delete an item instance");
+});
+
+// POST request to delete an item instance using id
+router.post("iteminstance/:id/delete", (req, res, next) => {
+  res.send("POST route to delete an item instance");
+});
+
+// GET request to update an item instance using id
+router.get("iteminstance/:id/update", (req, res, next) => {
+  res.send("GET route to update an item instance");
+});
+
+// POST request to update an item instance using id
+router.post("iteminstance/:id/update", (req, res, next) => {
+  res.send("POST route to update an item instance");
+});
+
+// GET request to display an item instance using id
+router.get("iteminstance/:id", (req, res, next) => {
+  res.send("GET route to display an item instance");
+});
+
+/* GET iteminstance list page */
+router.get("/iteminstance", (req, res, next) => {
+  res.send("Item Instance List Page");
 });
 
 module.exports = router;
