@@ -1,6 +1,7 @@
 const async = require("async");
 const Brand = require("../models/brand");
 const Item = require("../models/item");
+const { body, validationResult } = require("express-validator");
 
 // Display list of all Brands
 exports.brand_list = (req, res, next) => {
@@ -46,4 +47,57 @@ exports.brand_detail = (req, res, next) => {
   );
 };
 
-//! Have to start working here with brand create form on GET.
+// Display Brand Create form on GET
+exports.brand_create_get = (req, res, next) => {
+  res.render("brand_form", { title: "Create Brand" });
+};
+
+// Handle Brand Create on POST
+exports.brand_create_post = [
+  body("brand_name")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Brand name must be specified")
+    .isAlphanumeric()
+    .withMessage("Brand name has non-alphanumeric characters"),
+  body("gst_number")
+    .trim()
+    .isLength({ min: 1, max: 14 })
+    .escape()
+    .withMessage("Gst Number must be specified")
+    .isAlphanumeric()
+    .withMessage("Gst Number must be alphanumeric"),
+  body("address")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Firm Address Must be Specified"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("brand_form", {
+        title: "Create Brand",
+        brand: req.body,
+        errors: errors.array(),
+      });
+      return;
+    }
+
+    const brand = new Brand({
+      brand_name: req.body.brand_name,
+      gst_number: req.body.gst_number,
+      address: req.body.address,
+    });
+
+    brand.save((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect(brand.url);
+    });
+  },
+];
+
+//! Start Working here with Display Author delete form on GET
