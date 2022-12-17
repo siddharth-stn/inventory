@@ -100,4 +100,75 @@ exports.brand_create_post = [
   },
 ];
 
-//! Start Working here with Display Author delete form on GET
+// Display Brand Delete form on get
+exports.brand_delete_get = (req, res, next) => {
+  async.parallel(
+    {
+      brand: (callback) => {
+        Brand.findById(req.params.id).exec(callback);
+      },
+      brand_items: (callback) => {
+        Item.find({ Brand: req.params.id }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.brand == null) {
+        res.redirect("/article/brands");
+      }
+      res.render("brand delete", {
+        title: "Delete Brand",
+        brand: results.brand,
+        brand_items: results.brand_items,
+      });
+    }
+  );
+};
+
+// Handle Brand delelte on POST
+exports.brand_delete_post = (req, res, next) => {
+  async.parallel(
+    {
+      brand: (callback) => {
+        Brand.findById(req.body.brandid).exec(callback);
+      },
+      brand_items: (callback) => {
+        Item.find({ brand: req.body.brandid }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.brand_items.length > 0) {
+        // Brand has Items. Render in same way as for GET route.
+        res.render("brand delete", {
+          title: "Delete Brand",
+          brand: results.brand,
+          brand_items: results.brand_items,
+        });
+        return;
+      }
+      // Brand has no items. Delete object from the database and redirect to the list of Brands.
+      Brand.findByIdAndRemove(req.body.brandid, (err) => {
+        if (err) {
+          return next(err);
+        }
+        // Success - go to Brand list
+        res.redirect("/article/brand");
+      });
+    }
+  );
+};
+
+// Display Brand Update form in GET.
+exports.brand_update_get = (req, res, next) => {
+  res.send("NOT Implemented: Brand update GET");
+};
+
+// Handle Brand update on POST.
+exports.brand_update_post = (req, res, next) => {
+  res.send("NOT Implemented: Brand update POST");
+};
