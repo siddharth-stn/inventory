@@ -97,4 +97,20 @@ exports.category_create_post = [
   },
 ];
 
-//! Start working here with category delete form on GET.
+// Display Category Delete form on GET
+exports.category_delete_get = (req, res, next) => {
+  Category.findById(req.params.id).exec((err, category_found) => {
+    if (err) {
+      return next(err);
+    }
+    res.render("category_delete", {
+      title: "Category Delete",
+      category: category_found,
+    });
+  });
+};
+
+// Handle Delete form on POST
+exports.category_delete_post = (req, res, next) => {
+  res.send("NOT Implemented: Category Delete form on POST");
+};

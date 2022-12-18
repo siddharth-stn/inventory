@@ -5,7 +5,12 @@ const Schema = mongoose.Schema;
 const IteminstanceSchema = new Schema({
   item: { type: Schema.Types.ObjectId, ref: "Item", required: true },
   date_of_manuf: { type: Date, default: Date.now, required: true },
-  status: { type: String, required: true, enum: ["Available", "Out of Stock"] },
+  status: {
+    type: String,
+    required: true,
+    enum: ["Available", "Out of Stock"],
+    default: "Out of Stock",
+  },
   date_of_exp: { type: Date, default: Date.now, required: true },
 });
 
