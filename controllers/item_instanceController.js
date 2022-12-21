@@ -105,4 +105,22 @@ exports.iteminstance_create_post = [
   },
 ];
 
-//! Start working here with iteminstance delete display form on get.
+// iteminstance delete display form on GET
+exports.iteminstance_delete_get = (req, res, next) => {
+  res.send("Not Implemented: Iteminstance delete form on GET");
+};
+
+// Handle iteminstance delete form on POST
+exports.iteminstance_delete_post = (req, res, next) => {
+  res.send("Not Implemented: iteminstance delete form on POST");
+};
+
+// Display ItemInstance update form on GET
+exports.iteminstance_update_get = (req, res, next) => {
+  res.send("Not Implemented: iteminstance update form on GET");
+};
+
+// Handle ItemInstance update form on POST
+exports.iteminstance_update_post = (req, res, next) => {
+  res.send("Not Implemented: iteminstance update form on POST");
+};
