@@ -54,7 +54,7 @@ exports.item_list = (req, res, next) => {
     });
 };
 
-// Display detail page for a specific book
+// Display detail page for a specific item
 exports.item_detail = (req, res, next) => {
   async.parallel(
     {
