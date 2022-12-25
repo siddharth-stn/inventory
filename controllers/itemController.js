@@ -187,7 +187,7 @@ exports.item_delete_post = (req, res, next) => {
 };
 
 // Display item update on GET
-exports.item_update_post = (req, res, next) => {
+exports.item_update_get = (req, res, next) => {
   // Get item, brands and categories for form
   async.parallel(
     {

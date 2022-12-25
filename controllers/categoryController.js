@@ -114,3 +114,13 @@ exports.category_delete_get = (req, res, next) => {
 exports.category_delete_post = (req, res, next) => {
   res.send("NOT Implemented: Category Delete form on POST");
 };
+
+// Display category update form on GET
+exports.category_update_get = (req, res, next) => {
+  res.send("NOT IMPLEMENTED: Category update form on GET");
+};
+
+// Handle category update form on POST
+exports.category_update_post = (req, res, next) => {
+  res.send("NOT IMPLEMENTED: Category update form on POST");
+};

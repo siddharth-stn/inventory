@@ -118,7 +118,7 @@ exports.brand_delete_get = (req, res, next) => {
       if (results.brand == null) {
         res.redirect("/article/brands");
       }
-      res.render("brand delete", {
+      res.render("brand_delete", {
         title: "Delete Brand",
         brand: results.brand,
         brand_items: results.brand_items,
@@ -144,7 +144,7 @@ exports.brand_delete_post = (req, res, next) => {
       }
       if (results.brand_items.length > 0) {
         // Brand has Items. Render in same way as for GET route.
-        res.render("brand delete", {
+        res.render("brand_delete", {
           title: "Delete Brand",
           brand: results.brand,
           brand_items: results.brand_items,
