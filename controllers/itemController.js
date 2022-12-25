@@ -114,6 +114,179 @@ exports.item_create_get = (req, res, next) => {
 // Handle item create on POST
 exports.item_create_post = [
   // Validate and sanitize fields
-  body("name"),
-  //! have to start working here
+  body("name", "Name must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("brand", "Brand must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("description", "Description must not be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("category").escape(),
+  body("creation_date").escape(),
+
+  // Process after request validation and sanitization
+  (req, res, next) => {
+    // Extract the validation errors from the request
+    const errors = validationResult(req);
+
+    // Create an Item object with escaped and trimmed data
+    const item = new Item({
+      name: req.body.name,
+      brand: req.body.brand,
+      description: req.body.description,
+      creation_date: req.body.creation_date,
+      category: req.body.category,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with the sanitized data
+      // Get all brands and categories for form
+      async.parallel(
+        {
+          brands(callback) {
+            Brand.find().exec(callback);
+          },
+          categories(callback) {
+            Category.find().exec(callback);
+          },
+        },
+        (err, results) => {
+          if (err) {
+            return next(err);
+          }
+          res.render("item_form", {
+            title: "Create Item",
+            brands: results.brands,
+            categories: results.categories,
+            item,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
+    }
+
+    // Data from the form is valid. Save Item
+    item.save((err) => {
+      if (err) {
+        return next(errs);
+      }
+      // Successful: redirect to the new item page
+      res.redirect(item.url);
+    });
+  },
+];
+
+// Display item delete form on GET
+exports.item_delete_get = (req, res, next) => {
+  res.send("NOT IMPLEMENTED: Item delete GET");
+};
+
+// Handle item delete on POST
+exports.item_delete_post = (req, res, next) => {
+  res.send("NOT IMPLEMENTED: Item delete POST");
+};
+
+// Display item update on GET
+exports.item_update_post = (req, res, next) => {
+  // Get item, brands and categories for form
+  async.parallel(
+    {
+      item(callback) {
+        Item.findById(req.params.id)
+          .populate("brand")
+          .populate("category")
+          .exec(callback);
+      },
+      brands(callback) {
+        Brand.find().exec(callback);
+      },
+      categories(callback) {
+        Category.find().exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.item == null) {
+        // No result
+        const err = new Error("Item not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Success
+      res.render("item_form", {
+        title: "Update Item",
+        brands: results.brands,
+        categories: results.categories,
+        item: results.item,
+      });
+    }
+  );
+};
+
+// Handle item update on POST
+exports.item_update_post = [
+  // Validate and sanitize fields
+  body("name", "Name must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("description", "Description must not be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  // Process Request after validation and sanitization
+  (req, res, next) => {
+    // Extract validation errors from a request
+    const errors = validatoionResult(req);
+
+    // Create an Item object with the escaped and trimmed data and old id
+    const item = new Item({
+      name: req.body.name,
+      brand: req.body.brand,
+      description: req.body.description,
+      creation_date: req.body.creation_date,
+      category: req.body.category,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. render form again with sanitized values
+
+      // Get all brands and categories for form
+      async.parallel(
+        {
+          brands(callback) {
+            Brand.find().exec(callback);
+          },
+          categories(callback) {
+            Category.find().exec(callback);
+          },
+        },
+        (err, results) => {
+          if (err) {
+            return next(err);
+          }
+
+          res.render("item_form", {
+            title: "Update Item",
+            brands: results.brands,
+            categories: results.categories,
+            item,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
+    }
+
+    // Data from the form is valid. Update the record
+    Item.findByIdAndUpdate(req.params.id, item, {}, (err, theitem) => {
+      if (err) {
+        return next(err);
+      }
+
+      // Succesful: redirect to the item detail page
+      res.redirect(theitem.url);
+    });
+  },
 ];
