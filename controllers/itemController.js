@@ -105,7 +105,7 @@ exports.item_create_get = (req, res, next) => {
       res.render("item_form", {
         title: "Create Item",
         brands: results.brand,
-        categories: results.categtory,
+        categories: results.category,
       });
     }
   );
