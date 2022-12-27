@@ -237,7 +237,7 @@ exports.item_update_post = [
   // Process Request after validation and sanitization
   (req, res, next) => {
     // Extract validation errors from a request
-    const errors = validatoionResult(req);
+    const errors = validationResult(req);
 
     // Create an Item object with the escaped and trimmed data and old id
     const item = new Item({
