@@ -7,4 +7,11 @@ block content
             li
                 a(href=inst.url) #{inst.item.name} : #{inst.date_of_manuf}
                 | -
-                
+                if inst.status == 'Available'
+                    span.text-success #{inst.status}
+                else if inst.status=='Out of Stock'
+                    span.text-danger #{inst.status}
+                if inst.isExp==true
+                    span.text-warning Product expired its Shelf Life
+        else
+            li There are no product available in this store.    
