@@ -1,0 +1,27 @@
+extends layout 
+
+block content 
+    h1= title 
+
+    form(method='POST' action='') 
+        div.form-group
+            label(for='item') Item:
+            select#item.form-control(type='select' placeholder='Select Item' name='item' required='true')
+                for item in item_list
+                    option(value=item._id) #{item.name}
+        div.form-group
+            label(for='date_of_manuf') Date Of Manufacture:
+            input#date_of_manuf.form-control(type='date' placeholder='Enter Manufacturing Date' name='date_of_manuf' required='true' value=(undefined===iteminstance ? '' : iteminstance.date_of_manuf))
+        div.form-group
+            label(for='date_of_exp') Date of Expiry:
+            input#date_of_exp.form-control(type='date' placeholder='Enter Date of Expiry' name='date_of_exp' required='true' value=(undefined===iteminstance ? '' : iteminstance.date_of_exp))
+        div.form-group
+            label(for='status') Status:
+            select#status.form-control(type='select' placeholder='Select Status' name='status' required='true')
+                option(value='Available') Available
+                option(value='Out of Stock') Out Of Stock
+        button.btn.btn-primary(type='submit') Submit
+    if errors 
+        ul 
+            for error in errors 
+                li!= error.msg     

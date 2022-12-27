@@ -1,0 +1,10 @@
+extends layout 
+
+block content 
+    h1= title 
+    ul 
+        each inst in iteminstance_list
+            li
+                a(href=inst.url) #{inst.item.name} : #{inst.date_of_manuf}
+                | -
+                

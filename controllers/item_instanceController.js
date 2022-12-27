@@ -30,9 +30,9 @@ exports.iteminstance_detail = (req, res, next) => {
         err.status = 404;
         return next(err);
       }
-      res.render("itemInstance_detail", {
+      res.render("iteminstance_detail", {
         title: `Product: ${itemInstance.item.title}`,
-        itemInstance: itemInstance,
+        iteminstance: itemInstance,
       });
     });
 };
