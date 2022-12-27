@@ -1,0 +1,18 @@
+extends layout 
+
+block content
+    h1= title
+    form(method='POST', action='')
+        div.form-group
+            label(for='brand_name') Name:
+            input#brand_name.form-control(type="text" placeholder="Brand Name" name="brand_name" required="true" value=(undefined===brand ? "" : brand.brand_name))
+        div.form-group
+            label(for="gst_number") GST No.
+            input#gst_number.form-control(type="text" name="gst_number" placeholder="GST Number" required="true" value=(undefined===brand ? "" : brand.gst_number))
+        div.form-group
+            label(for="address") Address:
+            textarea#address.form-control(type="textarea" name="address" placeholder="Address" required="true" value=(undefined===brand ? "" : brand.address))
+    if errors
+        ul
+            for err in errors
+                li!= err.msg            

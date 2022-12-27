@@ -1,0 +1,12 @@
+extends layout 
+
+block content
+    h1= title 
+    ul
+        each brand in brand_list
+            li
+                a(href=brand.url) #{brand.brand_name}                          
+                |  
+                span &nbsp; GST No. #{brand.gst_number} 
+                |  
+                span &nbsp; Address: #{brand.address}

@@ -25,7 +25,7 @@ exports.brand_detail = (req, res, next) => {
       brand: (callback) => {
         Brand.findById(req.params.id).exec(callback);
       },
-      brands_items: (callback) => {
+      brand_items: (callback) => {
         Item.find({ brand: req.params.id }, "name description").exec(callback);
       },
     },
@@ -108,7 +108,7 @@ exports.brand_delete_get = (req, res, next) => {
         Brand.findById(req.params.id).exec(callback);
       },
       brand_items: (callback) => {
-        Item.find({ Brand: req.params.id }).exec(callback);
+        Item.find({ brand: req.params.id }).exec(callback);
       },
     },
     (err, results) => {
@@ -127,7 +127,7 @@ exports.brand_delete_get = (req, res, next) => {
   );
 };
 
-// Handle Brand delelte on POST
+// Handle Brand delete on POST
 exports.brand_delete_post = (req, res, next) => {
   async.parallel(
     {
