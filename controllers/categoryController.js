@@ -12,7 +12,7 @@ exports.category_list = (req, res, next) => {
       if (err) {
         return next(err);
       }
-      res.render("category list", {
+      res.render("category_list", {
         title: "Category List",
         category_list: list_category,
       });
